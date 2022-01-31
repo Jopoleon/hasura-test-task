@@ -1,0 +1,11 @@
+type Query {
+  getTailData(
+    tail: String!
+  ): TailData!
+}
+
+type TailData {
+  title: String!
+  description: String!
+}
+

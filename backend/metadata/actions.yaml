@@ -1,0 +1,11 @@
+actions:
+- name: getTailData
+  definition:
+    kind: ""
+    handler: http://host.docker.internal:3000/api/tail
+custom_types:
+  enums: []
+  input_objects: []
+  objects:
+  - name: TailData
+  scalars: []

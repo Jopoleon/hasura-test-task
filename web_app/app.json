@@ -1,0 +1,10 @@
+{
+  "name": "web-app",
+  "options": {
+    "port": 3030,
+    "http2": false,
+    "allow-unauthenticated": true,
+    "memory": "128Mi",
+    "cpu": "1"
+  }
+}

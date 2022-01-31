@@ -1,0 +1,10 @@
+- name: allowed-queries
+  definition:
+    queries:
+    - name: getTailId
+      query: |-
+        query MyQuery($tail:String) {
+          long_tails(where: {tail: {_eq: $tail}}) {
+            json_id
+          }
+        }

@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:13.1
+    restart: always
+    env_file: ./backend/.env
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  hasura-backend:
+    build:
+      context: ./backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: ./backend/.env
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/backend-app
+      - ./backend/migrations:/hasura-migrations
+      - ./backend/metadata:/hasura-metadata
+    links:
+      - postgres
+
+  web-app:
+    build:
+      context: ./web_app
+    depends_on:
+      - postgres
+      - hasura-backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web_app:/usr/src/app
+    links:
+      - hasura-backend
+
+
+volumes:
+  pgdata:

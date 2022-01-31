@@ -1,0 +1,9 @@
+- definition:
+    query:
+      collection_name: allowed-queries
+      query_name: getTailId
+  url: tail/:tail
+  methods:
+  - GET
+  name: getTailId
+  comment: null
