@@ -41,8 +41,6 @@ services:
       - hasura-backend
     ports:
       - 3000:3000
-    volumes:
-      - ./web_app:/usr/src/app
     links:
       - hasura-backend
 
