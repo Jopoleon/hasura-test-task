@@ -5,14 +5,12 @@ ENV PORT 3000
 
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app
-COPY yarn.lock /usr/src/app
-
-RUN yarn install --production
-
 COPY . /usr/src/app
 
-RUN yarn build
+RUN yarn install --force
 
+RUN yarn build
+COPY . /usr/src/app
 EXPOSE 3000
-CMD [ "yarn", "dev" ]
+
+CMD ["node_modules/.bin/next", "dev"]
